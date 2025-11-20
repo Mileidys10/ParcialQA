@@ -144,8 +144,8 @@ git push origin feature/nueva-funcionalidad
 3. Seleccionar rama: **feature/nueva-funcionalidad**
 4. Click **Create Pull Request**
 5. **GitHub Actions ejecuta automáticamente** el workflow
-6. Si ✅ pasa: Click **Merge pull request**
-7. Si ❌ falla: Ver logs, arreglar, hacer push de nuevo
+6. Si  pasa: Click **Merge pull request**
+7. Si  falla: Ver logs, arreglar, hacer push de nuevo
 
 ### Actualizar main local
 
@@ -201,21 +201,21 @@ git reset --hard HEAD~1
 
 ## TROUBLESHOOTING
 
-### ❌ "fatal: not a git repository"
+###  "fatal: not a git repository"
 
 Solución:
 ```powershell
 git init
 ```
 
-### ❌ "refused to merge unrelated histories"
+###  "refused to merge unrelated histories"
 
 Solución:
 ```powershell
 git pull origin main --allow-unrelated-histories
 ```
 
-### ❌ "fatal: The current branch main has no upstream branch"
+###  "fatal: The current branch main has no upstream branch"
 
 Solución:
 ```powershell
@@ -224,7 +224,7 @@ git push --set-upstream origin main
 git push -u origin main
 ```
 
-### ❌ Cambios sin guardar antes de cambiar rama
+###  Cambios sin guardar antes de cambiar rama
 
 Solución:
 ```powershell
@@ -234,7 +234,7 @@ git checkout mi-rama
 git stash pop  # Recuperar
 ```
 
-### ❌ "Permission denied (publickey)"
+###  "Permission denied (publickey)"
 
 Solución:
 - Generar SSH key: https://docs.github.com/en/authentication/connecting-to-github-with-ssh
@@ -255,9 +255,9 @@ Solución:
 2. Ir a GitHub → **Actions** tab
 
 3. Ver workflow "CI Quality Pipeline" ejecutándose:
-   - 🟡 En progreso
-   - ✅ Completado (todos green)
-   - ❌ Fallido (alguno red)
+   -  En progreso
+   -  Completado (todos green)
+   -  Fallido (alguno red)
 
 4. Click en el workflow para ver logs detallados
 

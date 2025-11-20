@@ -1,0 +1,67 @@
+LOGS DE EJECUCIÓN EXITOSA
+============================
+
+Ejecutar: npm run test:cov
+
+Expected Output:
+-----------------
+
+PASS  test/calculator.test.js
+  Calculator Functions
+    add
+      ✓ should add two positive numbers (2 ms)
+      ✓ should add negative numbers
+      ✓ should add zero
+    subtract
+      ✓ should subtract two numbers
+      ✓ should handle negative result
+    multiply
+      ✓ should multiply two numbers
+      ✓ should handle multiplication by zero
+    divide
+      ✓ should divide two numbers
+      ✓ should throw error on division by zero
+
+PASS  test/utils.test.js
+  Utils Functions
+    isEven
+      ✓ should return true for even numbers
+      ✓ should return false for odd numbers
+      ✓ should return true for zero
+    isPositive
+      ✓ should return true for positive numbers
+      ✓ should return false for negative numbers
+      ✓ should return false for zero
+    factorial
+      ✓ should calculate factorial of 5
+      ✓ should return 1 for factorial of 0
+      ✓ should return 1 for factorial of 1
+      ✓ should throw error for negative numbers
+
+Test Suites: 2 passed, 2 total
+Tests:       20 passed, 20 total
+Snapshots:   0 total
+Time:        3.456 s
+Ran all test suites.
+
+---------- Coverage summary -----------
+Statements   : 100% ( 40/40 )
+Branches     : 100% ( 18/18 )
+Functions    : 100% ( 7/7 )
+Lines        : 100% ( 40/40 )
+---------------------------------------
+
+✅ RESULTADO: Cobertura 100% > Umbral 80% ✓ PASS
+
+Indicadores de Éxito:
+- All tests passed ✓
+- No linting errors ✓
+- Coverage 100% >= 80% threshold ✓
+- Build completed successfully ✓
+
+Interpretación en GitHub Actions:
+- En la pestaña Actions, verás un check verde ✅
+- El step "Validate coverage threshold" mostrará:
+  "Code coverage: 100%"
+  "Coverage threshold validated successfully"
+- El PR/Push será aprobado para merge.

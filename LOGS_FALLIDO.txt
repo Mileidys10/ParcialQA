@@ -1,0 +1,131 @@
+LOGS DE EJECUCIÓN FALLIDA
+============================
+
+Escenario: Código con linter error + test fallido + cobertura baja
+
+---
+
+## ERROR 1: Linter Fail (ESLint)
+
+Comando: npm run lint
+
+Mensaje de Error:
+-----------------
+
+  12:10  error  'unused_variable' is assigned a value but never used  no-unused-vars
+  45:5   error  Missing semicolon                                     semi
+  78:2   error  Expected '===' and instead got '=='                   eqeqeq
+
+✖ 3 problems (3 errors, 0 warnings)
+
+El workflow se detiene aquí. Resultado: ❌ FAILED
+
+---
+
+## ERROR 2: Test Fail (Jest)
+
+Comando: npm test
+
+Mensaje de Error:
+-----------------
+
+ FAIL  test/calculator.test.js
+  Calculator Functions
+    add
+      ✓ should add two positive numbers (2 ms)
+      ✓ should add negative numbers
+      ✗ should add zero (3 ms)
+      
+      ● Calculator Functions › add › should add zero
+      
+        expect(received).toBe(expected)
+        
+        Expected: 5
+        Received: 6
+        
+         12 |    test('should add zero', () => {
+         13 |      expect(add(0, 5)).toBe(5);
+                                    ^
+         14 |    });
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 19 passed, 20 total
+
+El workflow se detiene aquí. Resultado: ❌ FAILED
+
+---
+
+## ERROR 3: Coverage Fail
+
+Comando: npm run test:cov
+
+Mensaje de Error:
+-----------------
+
+Test Suites: 2 passed, 2 total
+Tests:       20 passed, 20 total
+Time:        3.123 s
+
+---------- Coverage summary -----------
+Statements   : 60% ( 24/40 )      ← INSUFICIENTE
+Branches     : 55% ( 10/18 )      ← INSUFICIENTE
+Functions    : 70% ( 5/7 )        ← INSUFICIENTE
+Lines        : 65% ( 26/40 )      ← INSUFICIENTE
+---------------------------------------
+
+Validar umbral:
+
+$ COVERAGE=$(cat coverage/coverage-summary.json | grep -o '"lines": {"total": [^}]*' | grep -o '[0-9.]*' | tail -1)
+$ echo "Code coverage: $COVERAGE%"
+Code coverage: 65%
+
+if (( $(echo "65 < 80" | bc -l) )); then
+  echo "Coverage is below 80% threshold"
+  exit 1
+fi
+
+❌ Coverage is below 80% threshold
+❌ Workflow exit code: 1 (FAILED)
+
+Resultado: ❌ FAILED
+
+---
+
+## IDENTIFICAR FALLOS EN GITHUB ACTIONS
+
+En la pestaña "Actions" de GitHub:
+
+1. **Red X (❌)**: Indica workflow fallido.
+2. Hacer clic en el workflow → Expandir step fallido.
+3. Ver logs específicos:
+
+   a) Linter Fail:
+      - Step: "Run linter"
+      - Log: muestra línea exacta + error ESLint rule
+
+   b) Test Fail:
+      - Step: "Run tests"
+      - Log: muestra test name + assertion que falló + expected vs received
+
+   c) Coverage Fail:
+      - Step: "Validate coverage threshold"
+      - Log: muestra % actual vs threshold requerido (80%)
+
+---
+
+## RESUMEN: ¿Qué cambiar para que pase?
+
+| Error | Solución |
+|-------|----------|
+| Linter | `npm run lint:fix` → arreglar automáticamente |
+| Test fail | Revisar lógica en src/ → actualizar test |
+| Coverage < 80% | Escribir tests para código sin cobertura |
+
+Después de arreglar:
+```bash
+git add .
+git commit -m "fix: resolver errores"
+git push
+# GitHub Actions ejecuta automáticamente
+# Si todo pasa: ✅ PASSED
+```
